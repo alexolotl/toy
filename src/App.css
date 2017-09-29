@@ -47,12 +47,12 @@ h1 {
 
 .three canvas {
   /*max-width: 800px;*/
-  max-height: 620px;
+  max-height: 700px;
 }
 
 .toyboy {
   width: 850px;
-  margin-top: 400px;
+  margin-top: 60vh;
   max-width: 90vw;
 }
 

@@ -35,7 +35,8 @@ export default `
     }
 
  void main() {
-    vec2 uv = (gl_FragCoord.xy / resolution.y) + vec2(resolution.x / resolution.y, 0.);
+    vec2 uv = (vec2(gl_FragCoord.x - resolution.x*.5, gl_FragCoord.y) / resolution.y);
+    uv.x = uv.x +.5;
     vec2 origUv = uv;
 
     uv /= 4.;

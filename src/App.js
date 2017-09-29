@@ -27,7 +27,6 @@ class App extends Component {
             <img className="cake" style={{width: 120, maxWidth: '15%'}} src={require('./images/cake.png')} />
             <img className="logo" style={{width: 700, maxWidth: '85%'}} src={require('./images/matkastella-outline.png')} />
           </div>
-          <div style={{height: 100}}></div>
           <img className="toyboy" src={require('./images/TOYBOY.png')} />
         </div>
 

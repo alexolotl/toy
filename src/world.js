@@ -69,7 +69,7 @@ export default class World {
   }
 
   deviceOrientationHandler = (event) => {
-    this.uniforms.scale.value = event.gamma / 3.14;
+    // this.uniforms.scale.value = event.gamma / 3.14;
   }
 
   onTexLoad(texture) {
@@ -93,12 +93,23 @@ export default class World {
     this.video.width    = 320;
     this.video.height   = 240;
     this.video.autoplay = true;
+    this.video.preload = 'auto';
     this.video.loop = true;
-    this.video.src = require('./images/testvid.webm');
+    // this.video.src = require('./images/testvid.webm');
+    this.video.setAttribute('crossorigin', 'anonymous');
+    this.video.src = 'https://s3.amazonaws.com/aez-project/testvid.webm';
     this.video.volume = .6  ;
     this.videoTexture = new THREE.Texture( this.video );
     this.videoTexture.minFilter = THREE.LinearFilter;
     this.videoTexture.magFilter = THREE.LinearFilter;
+
+    this.video.play();
+
+    // this.loader = new THREE.TextureLoader(this.manager);
+    // this.loader.setCrossOrigin("anonymous");
+    // this.loader.load(this.video);
+
+    // setTimeout(() => this.onTexLoad(this.videoTexture), 4000);
 
     this.uniforms = {
       time: { type: "f", value: 1.0 },
@@ -119,9 +130,9 @@ export default class World {
     //   this.onTexLoad(tex)
     // }
     //
-    // this.loader = new THREE.TextureLoader(this.manager);
+    // this.loader = new THREE.TextureLoader();
     // this.loader.setCrossOrigin("anonymous");
-    // this.loader.load(this.video);
+    // this.loader.load('https://s3.amazonaws.com/aez-project/testvid.webm', (texture) => this.onTexLoad(texture));
 
     // setTimeout(() => this.onTexLoad(this.videoTexture), 4000);
   }

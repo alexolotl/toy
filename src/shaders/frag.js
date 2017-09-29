@@ -6,6 +6,8 @@ export default `
     uniform sampler2D textureSampler;
     uniform vec2 drag;
     uniform float scale;
+    uniform int format;
+    uniform int prevFormat;
 
     float warp(vec2 p) {
 
@@ -35,9 +37,18 @@ export default `
     }
 
  void main() {
-    vec2 uv = gl_FragCoord.xy / resolution.x;
+   vec2 uv;
+
+    if (resolution.x > resolution.y) {
+      uv = gl_FragCoord.xy / resolution.x;
+    }
+    else {
+      uv = gl_FragCoord.xy / resolution.y;
+    }
     vec2 origUv = uv;
-    origUv = fract(origUv*10. + uv.xy);
+    vec2 fractUv = fract(origUv*15. + uv.xy);
+    vec2 squashedUv = uv;
+    squashedUv.x -= .5;
 
     uv /= 4.;
 
@@ -85,7 +96,27 @@ float diff = max(dot(screenNormal, ld), 0.);
   color = mix(color, texcolor, 0.);
   color = (color + spec)*atten;
 
-  color = texture2D(textureSampler, mix(uv, origUv, .5) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+  if (format == 0) {
+    color = texture2D(textureSampler, mix(uv, fractUv, .5) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+  }
+  else if (format == 2) {
+    //color = texture2D(textureSampler, uv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+    //color = texture2D(textureSampler, fract(gl_FragCoord.xy * 200.) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 1.) + (scale/5.)*.0001*vec2(dx,dy)).xyz; // cool too !
+  }
+  else if (format == 1) {
+    color = texture2D(textureSampler, origUv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+  }
+  else if (format == 3) {
+    color = texture2D(textureSampler, squashedUv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+  }
+  else if (format == 4) {
+    //color = texture2D(textureSampler, fract(origUv*6000. + uv*45.) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 3.) + (scale/5.)*.0001*vec2(dx,dy)).xyz;
+  }
+  else { // this one is good too dont delete it !!!!
+    color = texture2D(textureSampler, mix(uv, origUv+.08*vec2(dx,dy), .5) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+  }
 
     gl_FragColor= vec4(color, 1.0);
   }

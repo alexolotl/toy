@@ -23,7 +23,12 @@ export default class World {
 
     this.initCamera();
 
-window.addEventListener('mousemove', this.mousemove)
+    window.addEventListener('mousemove', this.mousemove)
+
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', this.deviceOrientationHandler, false);
+      console.log('device orientation detected');
+    }
 
     this.addShader();
 
@@ -63,6 +68,10 @@ window.addEventListener('mousemove', this.mousemove)
     this.oldmouse.y = this.oldmouse.y / window.innerHeight * 2 - 1;
   }
 
+  deviceOrientationHandler = (event) => {
+    this.uniforms.scale.value = event.gamma / 3.14;
+  }
+
   onTexLoad(texture) {
     this.uniforms.textureSampler.value = texture;
 
@@ -97,7 +106,9 @@ window.addEventListener('mousemove', this.mousemove)
       mouse: { type: "v2", value: new THREE.Vector2() },
       drag: { type: "v2", value: new THREE.Vector2(0,0) },
       scale: { type: "f", value: 0.0 },
-      textureSampler: { type: "t", value: this.videoTexture }
+      textureSampler: { type: "t", value: this.videoTexture },
+      format: {type: "i", value: 0 },
+      prevFormat: {type: "i", value: 0},
     };
 
     this.render();

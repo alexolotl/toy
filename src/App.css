@@ -47,14 +47,18 @@ h1 {
 
 .three canvas {
   /*max-width: 800px;*/
-  max-height: 60vh;
-  max-width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 .toyboy {
   width: 705px;
   max-width: 90vw;
   position: relative;
+  padding: 20px;
 }
 
 .vid {

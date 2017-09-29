@@ -22,15 +22,22 @@ class App extends Component {
           //
           // <ReactPlayer className="video" url="https://vimeo.com/235128760" width="100vw" height="200vh" />
         }
-        <div className="logo-block">
-          <div style={{display: "flex", alignItems: "center", justifyContent: "center", maxWidth: "90vw"}}>
-            <img className="cake" style={{width: 120, maxWidth: '15%'}} src={require('./images/cake.png')} />
-            <img className="logo" style={{width: 700, maxWidth: '85%'}} src={require('./images/matkastella-outline.png')} />
+
+        <div style={{display: "flex", alignItems: "center", justifyContent: "space-around", flexFlow: "column nowrap", minHeight: "100vh"}}>
+          <div style={{display: "flex", alignItems: "center", justifyContent: "center", maxWidth: '90vw'}}>
+            <img className="cake" style={{width: 100, maxWidth: '15%'}} src={require('./images/cake.png')} />
+            <img className="logo" style={{width: 600, maxWidth: '85%'}} src={require('./images/matkastella-outline.png')} />
           </div>
           <img className="toyboy" src={require('./images/TOYBOY.png')} />
+          <div className="three" ref={threeref => this.threeref = threeref}></div>
+          <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: '90vw', width: 700}}>
+            <img className="cake" style={{width: 100, maxWidth: '15%'}} src={require('./images/cake.png')} />
+              <img className="cake" style={{width: 100, maxWidth: '15%'}} src={require('./images/cake.png')} />
+                <img className="cake" style={{width: 100, maxWidth: '15%'}} src={require('./images/cake.png')} />
+                  <img className="cake" style={{width: 100, maxWidth: '15%'}} src={require('./images/cake.png')} />
+                    <img className="cake" style={{width: 100, maxWidth: '15%'}} src={require('./images/cake.png')} />
+          </div>
         </div>
-
-        <div className="three" ref={threeref => this.threeref = threeref}></div>
 
 
       </div>

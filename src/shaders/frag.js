@@ -35,7 +35,7 @@ export default `
     }
 
  void main() {
-    vec2 uv = (gl_FragCoord.xy / resolution.xy);
+    vec2 uv = (gl_FragCoord.xy / resolution.y) + vec2(resolution.x / resolution.y, 0.);
     vec2 origUv = uv;
 
     uv /= 4.;
@@ -84,7 +84,7 @@ float diff = max(dot(screenNormal, ld), 0.);
   color = mix(color, texcolor, 0.);
   color = (color + spec)*atten;
 
-  color = texture2D(textureSampler,  + (scale/10.)*.0001*vec2(dx,dy)).xyz;
+  color = texture2D(textureSampler, origUv + (scale/10.)*.0001*vec2(dx,dy)).xyz;
 
     gl_FragColor= vec4(color, 1.0);
   }

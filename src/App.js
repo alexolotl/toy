@@ -47,13 +47,14 @@ class App extends Component {
 
         <div onClick={this.flipCanvas} className={canvasClasses} ref={threeref => this.threeref = threeref}></div>
 
-        <div style={{zindex: 4, display: "flex", alignItems: "center", justifyContent: "center", flexFlow: "column nowrap", minHeight: "100vh"}}>
-          <div style={{zIndex: 4, display: "flex", alignItems: "center", justifyContent: "center", maxWidth: '90vw'}}>
+        <div style={{zindex: 4, display: "flex", alignItems: "center", justifyContent: "space-between", flexFlow: "column nowrap", minHeight: "100vh"}}>
+          <div style={{zIndex: 4, display: "none", alignItems: "center", justifyContent: "center", maxWidth: '90vw'}}>
             <img className="cake" style={{width: 100, maxWidth: '15%'}} src={require('./images/cake.png')} />
             <img className="logo" style={{width: 600, maxWidth: '85%'}} src={require('./images/matkastella-outline.png')} />
           </div>
+          <img className="toyboy" style={{opacity: 0}} src={require('./images/TOYBOY.png')} />
           <img className="toyboy" src={require('./images/TOYBOY.png')} />
-          <div style={{zIndex: 5, display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: '90vw', width: 650}}>
+          <div style={{justifySelf: "flex-end", height: 150, zIndex: 5, display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: '90vw', width: 200}}>
             <img onClick={() => this.handleChange(0)} className="cake" style={{width: 80, maxWidth: '15%'}} src={require('./images/cake.png')} />
             <img onClick={() => this.handleChange(1)} className="cake" style={{width: 80, maxWidth: '15%'}} src={require('./images/cake.png')} />
             <img onClick={() => this.handleChange(2)} className="cake" style={{width: 80, maxWidth: '15%'}} src={require('./images/cake.png')} />

@@ -46,9 +46,11 @@ export default `
       uv = gl_FragCoord.xy / resolution.y;
     }
     vec2 origUv = uv;
+    origUv.x /= 1.4;
     vec2 fractUv = fract(origUv*15. + uv.xy);
-    vec2 squashedUv = uv;
-    squashedUv.x -= .5;
+    vec2 squashedUv = gl_FragCoord.xy/resolution.y;
+    squashedUv.x /= 1.4;
+    squashedUv.x -= .15;
 
     uv /= 4.;
 
@@ -97,14 +99,14 @@ float diff = max(dot(screenNormal, ld), 0.);
   color = (color + spec)*atten;
 
   if (format == 0) {
-    color = texture2D(textureSampler, mix(uv, fractUv, .5) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
-  }
-  else if (format == 2) {
-    //color = texture2D(textureSampler, uv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
-    //color = texture2D(textureSampler, fract(gl_FragCoord.xy * 200.) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
-    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 1.) + (scale/5.)*.0001*vec2(dx,dy)).xyz; // cool too !
+    color = texture2D(textureSampler, mix(uv, fractUv, .5) + (scale/4.)*.0001*vec2(dx,dy)).xyz;
   }
   else if (format == 1) {
+    //color = texture2D(textureSampler, uv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+    //color = texture2D(textureSampler, fract(gl_FragCoord.xy * 200.) + (scale/10.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 1.) + (scale/4.)*.0001*vec2(dx,dy)).xyz; // cool too !
+  }
+  else if (format == 2) {
     color = texture2D(textureSampler, origUv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
   }
   else if (format == 3) {

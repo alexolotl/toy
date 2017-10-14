@@ -6,8 +6,10 @@ export default `
     uniform sampler2D textureSampler;
     uniform vec2 drag;
     uniform float scale;
+    uniform float scale2;
     uniform int format;
     uniform int prevFormat;
+    uniform float timer;
 
     float warp(vec2 p) {
 
@@ -99,22 +101,22 @@ float diff = max(dot(screenNormal, ld), 0.);
   color = (color + spec)*atten;
 
   if (format == 0) {
-    color = texture2D(textureSampler, mix(uv, fractUv, .5) + (scale/4.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, mix(uv, fractUv, .5) + (scale/4. + scale2/4.)*.0001*vec2(dx,dy)).xyz;
   }
   else if (format == 1) {
-    //color = texture2D(textureSampler, uv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+    //color = texture2D(textureSampler, uv + (scale/8. + scale2/8.)*.0001*vec2(dx,dy)).xyz;
     //color = texture2D(textureSampler, fract(gl_FragCoord.xy * 200.) + (scale/10.)*.0001*vec2(dx,dy)).xyz;
-    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 1.) + (scale/4.)*.0001*vec2(dx,dy)).xyz; // cool too !
+    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 1.) + (scale/4. + scale2/4. +.1)*.0001*vec2(dx,dy)).xyz; // cool too !
   }
   else if (format == 2) {
-    color = texture2D(textureSampler, origUv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, origUv + (scale/8. + scale2/8.)*.0001*vec2(dx,dy)).xyz;
   }
   else if (format == 3) {
-    color = texture2D(textureSampler, squashedUv + (scale/8.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, squashedUv + (scale/8. + scale2/8.)*.0001*vec2(dx,dy)).xyz;
   }
   else if (format == 4) {
     //color = texture2D(textureSampler, fract(origUv*6000. + uv*45.) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
-    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 3.) + (scale/5.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 3.) + (scale2/5. + scale/5. +.2)*.0001*vec2(dx,dy)).xyz;
   }
   else { // this one is good too dont delete it !!!!
     color = texture2D(textureSampler, mix(uv, origUv+.08*vec2(dx,dy), .5) + (scale/8.)*.0001*vec2(dx,dy)).xyz;

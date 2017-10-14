@@ -1,4 +1,23 @@
 .App {
+  background-color: black;
+  }
+
+header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 7;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+header img {
+  max-height: 20px;
+}
+
+.Landing {
   text-align: center;
   max-width: 100vw;
   background-color: black;
@@ -12,11 +31,50 @@
   overflow-x: hidden;
 }
 
+.ScrollContent {
+  text-align: center;
+  width: 1200px;
+  max-width: 90vw;
+  margin: 0 auto;
+  z-index: 6;
+  overflow: hidden;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+
+  padding-bottom: 100px;
+}
+.ScrollContent h1 {
+  color: white;
+  z-index: 6;
+  flex: 1 0 100%;
+}
+.ScrollContent a, .ScrollContent img.third {
+  z-index: 6;
+
+  flex: 0 1 100%;
+  overflow: hidden;
+  align-self: flex-start;
+  height: 600px;
+}
+.ScrollContent img {
+  object-fit: contain;
+}
+.ScrollContent img.third {
+  flex: 1 1 auto;
+  max-height: 500px;
+  max-width: 300px;
+  object-fit: cover;
+}
+
 h1 {
   font-size: 4vw;
-  letter-spacing: .2em;
+  letter-spacing: .1em;
   color: rgba(195, 59, 134, .5);
-  -webkit-text-stroke: 2px rgb(240, 229, 133);
   font-family: "Helvetica Neue";
   align-self: flex-start;
 }
@@ -68,9 +126,13 @@ h1 {
   -webkit-text-stroke: 2px white;
 }
 
+.three, .three canvas {
+  z-index: 0;
+}
+
 .three canvas {
   transform: none;
-  transition: transform 1s;
+  /*transition: transform 1s;*/
 }
 
 .three canvas {
@@ -97,7 +159,7 @@ h1 {
   transform-origin: center center;
   transform: rotateX(40deg);
   transform-style: preserve-3d;
-  transition: transform 1s;
+  /*transition: transform 1s;*/
 }
 
 .toyboy {
@@ -105,6 +167,19 @@ h1 {
   max-width: 90vw;
   position: relative;
   padding: 20px;
+}
+
+.cake {
+}
+
+.fullScreen {
+  width: 100vw;
+  height: 500px;
+  z-index: 7;
+  overflow: hidden;
+}
+.fullScreen img {
+  z-index: 7
 }
 
 .vid {
@@ -122,4 +197,10 @@ h1 {
 
 iframe .play-bar, iframe .play-button {
   display: none;
+}
+
+@media (max-width: 768px) {
+  header {
+    justify-content: center;
+  }
 }

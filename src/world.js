@@ -1,12 +1,14 @@
 import * as THREE from 'three'
 import fragment from './shaders/frag'
 import vertex from './shaders/vert'
+import enableInlineVideo from 'iphone-inline-video';
 
 // TODO AEZ clean up this shader template
 
 export default class World {
 
-  constructor(domElement) {
+  constructor(domElement, videoElement) {
+    this.videoElement = videoElement;
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setClearColor(0x000000);
@@ -20,10 +22,13 @@ export default class World {
 
     this.mouse = new THREE.Vector2(0, 0);
     this.dampenedMouse = new THREE.Vector2(0, 0);
+    this.scroll = 0;
+    this.dampenedScroll = 0;
 
     this.initCamera();
 
     window.addEventListener('mousemove', this.mousemove)
+    window.addEventListener('scroll', () => {this.scroll = window.scrollY; this.renderer.domElement.style.transform = 'rotateX(' + Math.max(0, (this.scroll-900)/15) + 'deg)' })
 
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', this.deviceOrientationHandler, false);
@@ -52,7 +57,10 @@ export default class World {
     this.dampenedMouse.x += (this.mouse.x - this.dampenedMouse.x) * 0.04;
     this.dampenedMouse.y += (this.mouse.y - this.dampenedMouse.y) * 0.04;
 
+    this.dampenedScroll += (this.scroll - this.dampenedScroll) * 0.03;
+
     this.uniforms.scale.value = this.dampenedMouse.distanceTo(dampenedMouseOld)
+    this.uniforms.scale2.value = .2 * Math.abs(this.scroll - this.dampenedScroll);
   }
 
   mousemove = (event) => {
@@ -89,21 +97,25 @@ export default class World {
   };
   addShader() {
 
-    this.video      = document.createElement('video');
-    this.video.width    = 320;
-    this.video.height   = 240;
-    this.video.autoplay = true;
-    this.video.preload = 'auto';
-    this.video.loop = true;
+    // this.video = document.createElement('video');
+    this.video = this.videoElement;
+    this.video.width = 320;
+    this.video.height = 240;
+    // this.video.autoplay = true;
+    // this.video.preload = 'auto';
+    // this.video.playsinline = true;
+    // this.video.loop = true;
     // this.video.src = require('./images/testvid.webm');
-    this.video.setAttribute('crossorigin', 'anonymous');
-    this.video.src = 'https://s3.amazonaws.com/aez-project/testvid.webm';
-    this.video.volume = .6  ;
+    // this.video.setAttribute('crossorigin', 'anonymous');
+    // this.video.src = 'https://s3.amazonaws.com/aez-project/testvid.webm';
+    // this.video.src = 'https://s3.amazonaws.com/portfolio-219403973/Videos/Beige2.mp4';
+    // this.video.volume = .6  ;
     this.videoTexture = new THREE.Texture( this.video );
     this.videoTexture.minFilter = THREE.LinearFilter;
     this.videoTexture.magFilter = THREE.LinearFilter;
+    console.log(this.video);
 
-    this.video.play();
+    enableInlineVideo(this.video);
 
     // this.loader = new THREE.TextureLoader(this.manager);
     // this.loader.setCrossOrigin("anonymous");
@@ -117,9 +129,11 @@ export default class World {
       mouse: { type: "v2", value: new THREE.Vector2() },
       drag: { type: "v2", value: new THREE.Vector2(0,0) },
       scale: { type: "f", value: 0.0 },
+      scale2: { type: "f", value: 0 },
       textureSampler: { type: "t", value: this.videoTexture },
       format: {type: "i", value: 0 },
       prevFormat: {type: "i", value: 0},
+      timer: {type: "f", value: 0}
     };
 
     this.render();
@@ -156,6 +170,7 @@ export default class World {
       if (!this.uniformLoaded) {
         this.onTexLoad(this.videoTexture)
         this.uniformLoaded = true;
+        this.video.play();
       }
     }
 

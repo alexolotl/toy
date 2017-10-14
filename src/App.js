@@ -97,14 +97,17 @@ class App extends Component {
         </div>
 
 
-        <div className="ScrollContent">
-          <img className={'third'} src={shirt} />
-          <img className={'third'} src={shirt} />
+        {/*
+          <div style={{display: 'none'}} className="ScrollContent">
+            <img className={'third'} src={shirt} />
+            <img className={'third'} src={shirt} />
 
 
-          <h1>WATCH THE VIDEO</h1>
-          <a href="https://vimeo.com/236816688" target="_blank"><img src={require('./images/thumb.png')} /></a>
-        </div>
+            <h1>WATCH THE VIDEO</h1>
+            <a href="https://vimeo.com/236816688" target="_blank"><img src={require('./images/thumb.png')} /></a>
+          </div>
+        */}
+
       </div>
     );
   }

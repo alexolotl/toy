@@ -19,6 +19,20 @@ class App extends Component {
     this.scene = new World(this.threeref, this.video);
   }
   handleChange(index) {
+
+    if (index == 'plus') {
+      if (this.state.activeCake == 4) {
+        index = 0
+      }
+      else {index = this.state.activeCake + 1;}
+    }
+    if (index == 'minus') {
+      if (this.state.activeCake == 0) {
+        index = 4
+      }
+      else {index = this.state.activeCake - 1}
+    }
+
     this.scene.uniforms.prevFormat.value = this.scene.uniforms.format.value;
     this.scene.uniforms.format.value = index;
     this.setState({activeCake: index})
@@ -47,9 +61,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <video ref={vidref => this.video = vidref} style={{display: 'none'}} width="400" height="400" autoPlay="true" preload="auto" loop crossOrigin="anonymous" playsInline>
-          <source type="video/mp4" src="https://s3.amazonaws.com/portfolio-219403973/Videos/Beige2.mp4" />
-            <source type="video/webm" src="https://s3.amazonaws.com/aez-project/testvid.webm" />
+        <video ref={vidref => this.video = vidref} style={{display: 'none'}} width="400" height="400" preload="true" autoPlay="true" loop playsInline>
+          <source type="video/mp4" src="https://s3.amazonaws.com/aez-project/toyboy_compressed.mp4" />
+          <source type="video/webm" src="https://s3.amazonaws.com/aez-project/toyboy_compressed.webm" />
         </video>
 
         <img style={{position: 'fixed', top: 0, left: '50%'}} src={require('./images/matkastella.png')} />
@@ -83,13 +97,13 @@ class App extends Component {
 <button style={{zIndex: 5}} onClick={this.playVideo}>Play</button>
             */}
           <div style={{justifySelf: "center", zIndex: 5, display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: '85vw', width: 650}}>
-            <img onClick={() => this.handleChange(this.state.activeCake ? this.state.activeCake - 1 : 4)} className="cake" style={{cursor: 'pointer', height: 50, paddingRight: 20, maxWidth: '10vw'}} src={require('./images/left2.svg')} />
+            <img onClick={() => this.handleChange('minus')} className="cake" style={{cursor: 'pointer', height: 50, paddingRight: 20, maxWidth: '10vw'}} src={require('./images/left2.svg')} />
             <img onClick={() => this.handleChange(0)} className="cake" style={{cursor: 'pointer', width: 80, maxWidth: '10vw'}} src={this.state.activeCake == 0 && cake_active || cake} />
             <img onClick={() => this.handleChange(1)} className="cake" style={{cursor: 'pointer', width: 80, maxWidth: '10vw'}} src={this.state.activeCake == 1 && cake_active || cake} />
             <img onClick={() => this.handleChange(2)} className="cake" style={{cursor: 'pointer', width: 80, maxWidth: '10vw'}} src={this.state.activeCake == 2 && cake_active || cake} />
             <img onClick={() => this.handleChange(3)} className="cake" style={{cursor: 'pointer', width: 80, maxWidth: '10vw'}} src={this.state.activeCake == 3 && cake_active || cake} />
             <img onClick={() => this.handleChange(4)} className="cake" style={{cursor: 'pointer', width: 80, maxWidth: '10vw'}} src={this.state.activeCake == 4 && cake_active || cake} />
-            <img onClick={() => this.handleChange((this.state.activeCake == 4) ? 0 : (this.state.activeCake + 1))} className="cake" style={{cursor: 'pointer', height: 50, paddingLeft: 20, maxWidth: '10vw'}} src={require('./images/right2.svg')} />
+            <img onClick={() => this.handleChange('plus')} className="cake" style={{cursor: 'pointer', height: 50, paddingLeft: 20, maxWidth: '10vw'}} src={require('./images/right2.svg')} />
           </div>
 
         </div>

@@ -25,10 +25,12 @@ export default class World {
     this.scroll = 0;
     this.dampenedScroll = 0;
 
+    this.alphaDrag = 0;
+
     this.initCamera();
 
     window.addEventListener('mousemove', this.mousemove)
-    window.addEventListener('scroll', () => {this.scroll = window.scrollY; this.renderer.domElement.style.transform = 'rotateX(' + Math.max(0, (this.scroll-900)/15) + 'deg)' })
+    window.addEventListener('scroll', this.onscroll)
 
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', this.deviceOrientationHandler, false);
@@ -42,11 +44,14 @@ export default class World {
 
     this.resize();
 
-    this.animationFrameId = null;
-
-    requestAnimationFrame(this.render);
+    // this.animationFrameId = null;
+    //
+    // requestAnimationFrame(this.render);
     window.addEventListener('resize', this.resize);
+  }
 
+  onscroll = (event) => {
+    this.scroll = window.scrollY; this.renderer.domElement.style.transform = 'rotateX(' + Math.max(0, (this.scroll-900)/15) + 'deg)'
   }
 
   update() {
@@ -59,7 +64,8 @@ export default class World {
 
     this.dampenedScroll += (this.scroll - this.dampenedScroll) * 0.03;
 
-    this.uniforms.scale.value = this.dampenedMouse.distanceTo(dampenedMouseOld)
+      this.uniforms.scale.value = this.dampenedMouse.distanceTo(dampenedMouseOld)
+
     this.uniforms.scale2.value = .2 * Math.abs(this.scroll - this.dampenedScroll);
   }
 
@@ -77,7 +83,10 @@ export default class World {
   }
 
   deviceOrientationHandler = (event) => {
-    // this.uniforms.scale.value = event.gamma / 3.14;
+    // this.alphaPrev = this.alpha;
+    // this.alpha = event.gamma;
+    // this.alphaDrag += (this.alpha - this.alphaDrag) * 0.03;
+    // this.alphaDragDiff = Math.abs(this.alpha - this.alphaDrag) / 45;
   }
 
   onTexLoad(texture) {
@@ -95,33 +104,22 @@ export default class World {
     this.scene.add(shader);
 
   };
-  addShader() {
 
-    // this.video = document.createElement('video');
+  oncanplaythrough = () => {
+    this.videoTexture.needsUpdate = true;
+    this.onTexLoad(this.videoTexture)
+    this.uniformLoaded = true;
+    this.video.play();
+    this.render()
+  }
+
+  addShader() {
     this.video = this.videoElement;
-    this.video.width = 320;
-    this.video.height = 240;
-    // this.video.autoplay = true;
-    // this.video.preload = 'auto';
-    // this.video.playsinline = true;
-    // this.video.loop = true;
-    // this.video.src = require('./images/testvid.webm');
-    // this.video.setAttribute('crossorigin', 'anonymous');
-    // this.video.src = 'https://s3.amazonaws.com/aez-project/testvid.webm';
-    // this.video.src = 'https://s3.amazonaws.com/portfolio-219403973/Videos/Beige2.mp4';
-    // this.video.volume = .6  ;
-    this.videoTexture = new THREE.Texture( this.video );
+    this.video.setAttribute('crossorigin', 'anonymous');
+    this.videoTexture = new THREE.VideoTexture( this.video );
     this.videoTexture.minFilter = THREE.LinearFilter;
     this.videoTexture.magFilter = THREE.LinearFilter;
-    console.log(this.video);
-
-    enableInlineVideo(this.video);
-
-    // this.loader = new THREE.TextureLoader(this.manager);
-    // this.loader.setCrossOrigin("anonymous");
-    // this.loader.load(this.video);
-
-    // setTimeout(() => this.onTexLoad(this.videoTexture), 4000);
+    this.videoTexture.format = THREE.RGBFormat;
 
     this.uniforms = {
       time: { type: "f", value: 1.0 },
@@ -136,22 +134,11 @@ export default class World {
       timer: {type: "f", value: 0}
     };
 
+    // this.video.oncanplaythrough = this.oncanplaythrough
     this.render();
-
-
-    // this.manager = new THREE.LoadingManager();
-    // this.manager.onLoad = (tex) => {
-    //   this.onTexLoad(tex)
-    // }
-    //
-    // this.loader = new THREE.TextureLoader();
-    // this.loader.setCrossOrigin("anonymous");
-    // this.loader.load('https://s3.amazonaws.com/aez-project/testvid.webm', (texture) => this.onTexLoad(texture));
-
-    // setTimeout(() => this.onTexLoad(this.videoTexture), 4000);
   }
 
-  cleanupScene = () => {
+  cleanupScene() {
     console.log('cleanup scene called')
     this.scene = null;
     this.projector = null;
@@ -164,7 +151,7 @@ export default class World {
   }
 
   render = () => {
-    if( this.video.readyState === this.video.HAVE_ENOUGH_DATA ){
+    if( this.video.readyState == this.video.HAVE_ENOUGH_DATA ){
       this.videoTexture.needsUpdate = true;
 
       if (!this.uniformLoaded) {

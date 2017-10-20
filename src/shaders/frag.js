@@ -109,13 +109,20 @@ float diff = max(dot(screenNormal, ld), 0.);
     //color = texture2D(textureSampler, uv + (scale/8. + scale2/8.)*.0001*vec2(dx,dy)).xyz;
     //color = texture2D(textureSampler, fract(gl_FragCoord.xy * 200.) + (scale/10.)*.0001*vec2(dx,dy)).xyz;
     color = texture2D(textureSampler, fract(gl_FragCoord.xy) + (scale/4. + scale2/4. +.1)*.0001*vec2(dx,dy)).xyz; // cool too !
+
+    color *= .8;
+    color += .2;
+    vec2 displace = (scale/4. + scale2/4. +.1)*.0001*vec2(dx,dy);
+    if (fract(st.x * 3.) < .7 && fract(st.x*3.) > .3) {
+      color = texture2D(textureSampler,st + displace).xyz;
+    }
   }
   else if (format == 2) {
-    color = texture2D(textureSampler, origUv + (scale/8. + scale2/8.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, origUv + (scale/8. + scale2/8.)*.0001*vec2(0.,dy*10.)).xyz;
   }
   else if (format == 3) {
-    color = texture2D(textureSampler, squashedUv + (scale/8. + scale2/8.)*.0001*vec2(dx,dy)).xyz;
-    color = mix(color, texture2D(textureSampler, vec2(st.y, 1.+scale) + (scale/8. + scale2/8.)*.0001*vec2(dx,dy)).xyz, .5);
+    color = texture2D(textureSampler, squashedUv).xyz;
+    color = mix(color, texture2D(textureSampler, vec2(st.y, 1.+scale)).xyz, .5);
   }
   else if (format == 4) {
     //color = texture2D(textureSampler, fract(origUv*6000. + uv*45.) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
@@ -124,6 +131,8 @@ float diff = max(dot(screenNormal, ld), 0.);
   else { // this one is good too dont delete it !!!!
     color = texture2D(textureSampler, mix(uv, origUv+.08*vec2(dx,dy), .5) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
   }
+
+
 
     gl_FragColor= vec4(color, 1.0);
   }

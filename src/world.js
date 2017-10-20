@@ -7,8 +7,9 @@ import enableInlineVideo from 'iphone-inline-video';
 
 export default class World {
 
-  constructor(domElement, videoElement) {
+  constructor(domElement, videoElement, cakesElement) {
     this.videoElement = videoElement;
+    this.cakes = cakesElement;
     this.scene = new THREE.Scene();
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setClearColor(0x000000);
@@ -51,7 +52,10 @@ export default class World {
   }
 
   onscroll = (event) => {
-    this.scroll = window.scrollY; this.renderer.domElement.style.transform = 'rotateX(' + Math.max(0, (this.scroll-900)/15) + 'deg)'
+    this.scroll = window.scrollY;
+    this.renderer.domElement.style.transform = 'rotateX(' + Math.max(0, (this.scroll-1000)/5) + 'deg)';
+    this.renderer.domElement.style.backfaceVisibility = 'hidden';
+
   }
 
   update() {

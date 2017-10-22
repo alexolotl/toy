@@ -7,9 +7,11 @@ export default `
     uniform vec2 drag;
     uniform float scale;
     uniform float scale2;
+    uniform float scale3;
     uniform int format;
     uniform int prevFormat;
     uniform float timer;
+    uniform sampler2D toyboy;
 
     float warp(vec2 p) {
 
@@ -131,6 +133,10 @@ float diff = max(dot(screenNormal, ld), 0.);
   else { // this one is good too dont delete it !!!!
     color = texture2D(textureSampler, mix(uv, origUv+.08*vec2(dx,dy), .5) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
   }
+
+  vec3 tb = texture2D(toyboy, gl_FragCoord.xy / resolution.xy).xyz;
+  color *= mix(tb, vec3(1.), 1. - scale3);
+  color += .3*color;
 
 
 

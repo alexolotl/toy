@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import fragment from './shaders/frag'
 import vertex from './shaders/vert'
 import enableInlineVideo from 'iphone-inline-video';
+const logo = require('./images/TOYBOY.png')
 
 // TODO AEZ clean up this shader template
 
@@ -53,8 +54,9 @@ export default class World {
 
   onscroll = (event) => {
     this.scroll = window.scrollY;
-    this.renderer.domElement.style.transform = 'rotateX(' + Math.max(0, (this.scroll-1000)/5) + 'deg)';
-    this.renderer.domElement.style.backfaceVisibility = 'hidden';
+    this.renderer.domElement.style.transform = 'rotateX(' + Math.min(Math.max(0, (this.scroll-2600)/10), 30) + 'deg)';
+    // this.renderer.domElement.style.backfaceVisibility = 'hidden';
+    this.uniforms.scale3.value = Math.min(Math.max(0, (this.scroll-3200)/10), 30) / 30;
 
   }
 
@@ -63,8 +65,8 @@ export default class World {
 
     const dampenedMouseOld = this.dampenedMouse.clone()
 
-    this.dampenedMouse.x += (this.mouse.x - this.dampenedMouse.x) * 0.04;
-    this.dampenedMouse.y += (this.mouse.y - this.dampenedMouse.y) * 0.04;
+    this.dampenedMouse.x += (this.mouse.x - this.dampenedMouse.x) * 0.03;
+    this.dampenedMouse.y += (this.mouse.y - this.dampenedMouse.y) * 0.03;
 
     this.dampenedScroll += (this.scroll - this.dampenedScroll) * 0.03;
 
@@ -125,6 +127,10 @@ export default class World {
     this.videoTexture.magFilter = THREE.LinearFilter;
     this.videoTexture.format = THREE.RGBFormat;
 
+    const loader = new THREE.TextureLoader;
+
+    this.toyboylogo = THREE.ImageUtils.loadTexture( require('./images/TOYBOY.png') );
+
     this.uniforms = {
       time: { type: "f", value: 1.0 },
       resolution: { type: "v2", value: new THREE.Vector2() },
@@ -132,11 +138,18 @@ export default class World {
       drag: { type: "v2", value: new THREE.Vector2(0,0) },
       scale: { type: "f", value: 0.0 },
       scale2: { type: "f", value: 0 },
+      scale3: { type: "f", value: 0 },
       textureSampler: { type: "t", value: this.videoTexture },
       format: {type: "i", value: 0 },
       prevFormat: {type: "i", value: 0},
-      timer: {type: "f", value: 0}
+      timer: {type: "f", value: 0},
+      toyboy: {type: "t", value: null}
     };
+
+    loader.load(logo, (tex) => {
+      this.toyboylogo = tex
+      this.uniforms.toyboy.value = tex
+    })
 
     // this.video.oncanplaythrough = this.oncanplaythrough
     this.render();

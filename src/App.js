@@ -81,9 +81,9 @@ class App extends Component {
       <div className="App">
         <header>
           <a href="#">toyboy</a>
-          <a href="#merch">merch</a>
-          <a href="#">video</a>
-          <a href="https://en.wikipedia.org/wiki/Castella" target="_blank">about me</a>
+          <a href="#merch">shop</a>
+          <a href="#video">video</a>
+          <a href="https://en.wikipedia.org/wiki/Castella" target="_blank">about</a>
         </header>
         <video ref={vidref => this.video = vidref} style={{display: 'none'}} width="400" height="400" preload="true" autoPlay="true" loop playsInline>
           {/*
@@ -144,50 +144,66 @@ class App extends Component {
 
 
           <div className="container text-center content">
-            <div className="row merch" style={{marginBottom: 0}}>
-              <div className="col-sm-12" id="merch">
-                <h1 className="overlap">MERCH</h1>
+
+            <div className="row merch" id="merch" style={{marginBottom: 0}}>
+              <div>
+              <div className="col-sm-12 col shop">
+                <h1 className="overla">SHOP</h1>
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-6 col">
                 <a>
                   <img src={require('./images/edit1.jpg')} />
                   <h2 className="overlay">Toyboy Ripped Tee</h2>
                 </a>
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-6 col">
                 <a><img src={require('./images/edit2.jpg')} />
                 <h2 className="overlay">Toyboy Tall Tee</h2>
                 </a>
 
               </div>
-              <div className="col-sm-4">
+              <div className="col-sm-6 col">
                 <a><img src={require('./images/edit3.jpg')} />
 
                   <h2 className="overlay">Toyboy Crop</h2>
                 </a>
               </div>
-            </div>
-            <div className="row vimeo text-center">
-              <div className="col-sm-12">
-                <h1 className="overlap">VIDEO</h1>
+              <div className="col-sm-6 col">
+                <a><img src={require('./images/edit4.jpg')} />
+
+                  <h2 className="overlay">Toyboy Crop</h2>
+                </a>
               </div>
-              <div className="col-sm-12">
-                <iframe src="https://player.vimeo.com/video/236816688" style={{zIndex: 1, margin: '0 auto', zIndex: 5, textAlign: 'center'}} width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div className="row vimeo text-center" id="video">
+              <div style={{width: '100%'}}>
+                <div className="col-sm-12">
+                  <h1 className="overla">VIDEO</h1>
+                </div>
+                <div className="col-sm-12">
+                  <div className="iframe-container">
+                    <iframe src="https://player.vimeo.com/video/236816688" style={{zIndex: 1, margin: '0 auto', zIndex: 5, textAlign: 'center'}} frameBorder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                  </div>
+                </div>
               </div>
             </div>
 
 
 
-            <div style={{width: '100%', height: 3000}}></div>
+            <div style={{width: '100%', height: '200vh'}}></div>
           </div>
+
+
           <footer>
             <div ref={cake => this.cakeref = cake} style={{justifySelf: "center", zIndex: 5, display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: '85vw', width: 500}}>
               <img onClick={() => this.handleChange('minus')} className="cake" style={{cursor: 'pointer', height: 40, paddingRight: 20, maxWidth: '8vw'}} src={require('./images/left2.svg')} />
-              <img onClick={() => this.handleChange(0)} className="cake" style={{cursor: 'pointer', width: 60, maxWidth: '10vw'}} src={this.state.activeCake == 0 && cake_active || cake} />
-              <img onClick={() => this.handleChange(1)} className="cake" style={{cursor: 'pointer', width: 60, maxWidth: '10vw'}} src={this.state.activeCake == 1 && cake_active || cake} />
-              <img onClick={() => this.handleChange(2)} className="cake" style={{cursor: 'pointer', width: 60, maxWidth: '10vw'}} src={this.state.activeCake == 2 && cake_active || cake} />
-              <img onClick={() => this.handleChange(3)} className="cake" style={{cursor: 'pointer', width: 60, maxWidth: '10vw'}} src={this.state.activeCake == 3 && cake_active || cake} />
-              <img onClick={() => this.handleChange(4)} className="cake" style={{cursor: 'pointer', width: 60, maxWidth: '10vw'}} src={this.state.activeCake == 4 && cake_active || cake} />
+              <img onClick={() => this.handleChange(0)} className="cake" style={{cursor: 'pointer', width: 50, maxWidth: '10vw'}} src={this.state.activeCake == 0 && cake_active || cake} />
+              <img onClick={() => this.handleChange(1)} className="cake" style={{cursor: 'pointer', width: 50, maxWidth: '10vw'}} src={this.state.activeCake == 1 && cake_active || cake} />
+              <img onClick={() => this.handleChange(2)} className="cake" style={{cursor: 'pointer', width: 50, maxWidth: '10vw'}} src={this.state.activeCake == 2 && cake_active || cake} />
+              <img onClick={() => this.handleChange(3)} className="cake" style={{cursor: 'pointer', width: 50, maxWidth: '10vw'}} src={this.state.activeCake == 3 && cake_active || cake} />
+              <img onClick={() => this.handleChange(4)} className="cake" style={{cursor: 'pointer', width: 50, maxWidth: '10vw'}} src={this.state.activeCake == 4 && cake_active || cake} />
               <img onClick={() => this.handleChange('plus')} className="cake" style={{cursor: 'pointer', height: 40, paddingLeft: 20, maxWidth: '8vw'}} src={require('./images/right2.svg')} />
             </div>
             <img onClick={this.togglePlay} className="mute" src={this.state.mute ? play : mute} />

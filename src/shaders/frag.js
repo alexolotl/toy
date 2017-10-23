@@ -105,19 +105,19 @@ float diff = max(dot(screenNormal, ld), 0.);
   color = (color + spec)*atten;
 
   if (format == 0) {
-    color = texture2D(textureSampler, mix(uv, fractUv, .5) + (scale/4. + scale2/4.)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, mix(uv, fractUv, .75) + (scale/4. + scale2/4.)*.0001*vec2(dx,dy)).xyz;
+
   }
   else if (format == 1) {
-    //color = texture2D(textureSampler, uv + (scale/8. + scale2/8.)*.0001*vec2(dx,dy)).xyz;
-    //color = texture2D(textureSampler, fract(gl_FragCoord.xy * 200.) + (scale/10.)*.0001*vec2(dx,dy)).xyz;
-    color = texture2D(textureSampler, fract(gl_FragCoord.xy) + (scale/4. + scale2/4. +.1)*.0001*vec2(dx,dy)).xyz; // cool too !
+    // color = texture2D(textureSampler, fract(gl_FragCoord.xy) + (scale/4. + scale2/4. +.03)*.0001*vec2(dx,dy)).xyz; // cool too !
+    // color *= .8;
+    // color += .2;
+    // vec2 displace = (scale/4. + scale2/4. +.03)*.0001*vec2(dx,dy);
+    // if (fract(st.x * 3.) < .7 && fract(st.x*3.) > .3) {
+    //   color = texture2D(textureSampler,st + displace).xyz;
+    // }
 
-    color *= .8;
-    color += .2;
-    vec2 displace = (scale/4. + scale2/4. +.1)*.0001*vec2(dx,dy);
-    if (fract(st.x * 3.) < .7 && fract(st.x*3.) > .3) {
-      color = texture2D(textureSampler,st + displace).xyz;
-    }
+    color = texture2D(textureSampler, uv + (scale/4. + scale2/4.)*.0001*vec2(dx,dy)).xyz;
   }
   else if (format == 2) {
     color = texture2D(textureSampler, origUv + (scale/8. + scale2/8.)*.0001*vec2(0.,dy*10.)).xyz;
@@ -128,15 +128,19 @@ float diff = max(dot(screenNormal, ld), 0.);
   }
   else if (format == 4) {
     //color = texture2D(textureSampler, fract(origUv*6000. + uv*45.) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
-    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 3.) + (scale2/5. + scale/5. +.2)*.0001*vec2(dx,dy)).xyz;
+    color = texture2D(textureSampler, fract(gl_FragCoord.xy / 4.) + (scale2/5. + scale/5. +.2)*.0001*vec2(dx,dy)).xyz;
   }
   else { // this one is good too dont delete it !!!!
     color = texture2D(textureSampler, mix(uv, origUv+.08*vec2(dx,dy), .5) + (scale/8.)*.0001*vec2(dx,dy)).xyz;
   }
 
   vec3 tb = texture2D(toyboy, gl_FragCoord.xy / resolution.xy).xyz;
+  vec3 outline = 5.*(1. - tb) * tb;
+  outline = smoothstep(.7,.99,outline) * scale3 * scale3 * scale3;
+  tb = smoothstep(0.4, 0.5, tb) * 2.;
   color *= mix(tb, vec3(1.), 1. - scale3);
   color += .3*color;
+  color += color*outline;
 
 
 

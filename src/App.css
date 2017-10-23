@@ -1,8 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500');
+
 
 .App {
   background-color: black;
   overflow-x: hidden;
   }
+
+  a {
+    font-family: "Montserrat";
+    font-weight: 400;
+}
+h2 {
+  font-family: "Montserrat";
+  font-weight: 400;
+}
 
 header {
   position: fixed;
@@ -21,7 +32,7 @@ header img {
   max-height: 20px;
 }
 header a {
-  font-size: 3em;
+  font-size: 2em;
   color: white;
   text-transform: uppercase;
   font-style: italic;
@@ -38,7 +49,7 @@ footer {
   left: 0px;
   width: 100vw;
   height: 70px;
-  z-index: 7;
+  z-index: 8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,11 +59,12 @@ footer {
 }
 footer img.mute {
   height: 50px;
-  max-height: 8vw;
+  max-height: 12vw;
   position: absolute;
   right: 10px;
   top: 0;
   transform: translateY(-120%);
+  cursor: pointer;
 }
 
 .overlap {
@@ -65,6 +77,7 @@ footer img.mute {
   max-width: 100vw;
   background-color: black;
   height: 100vh;
+  top: 70px;
   overflow: hidden;
 
   display: flex;
@@ -104,35 +117,6 @@ footer img.mute {
   align-self: flex-start;
   height: 600px;
 }
-.ScrollContent img {
-  object-fit: contain;
-}
-.ScrollContent img.third {
-  flex: 1 1 auto;
-  max-height: 500px;
-  max-width: 300px;
-  object-fit: cover;
-}
-
-/*.merch {
-  width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-between;
-}
-.merch a {
-  z-index: 5;
-  flex: 1 1 30%;
-  padding: 10px;
-  height: 200px;
-}
-.merch img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}*/
-
 .content div {
   margin-bottom: 20px;
 }
@@ -168,11 +152,22 @@ footer img.mute {
 }
 h1 {
   font-size: 5em;
-  letter-spacing: .1em;
+  /*letter-spacing: .1em;*/
   color: white;
-  font-family: "Helvetica Neue";
+  font-family: "Montserrat";
   align-self: flex-start;
-  font-style: italic;
+  /*font-style: italic;*/
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.merch, .vimeo {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+  margin-top: 20px;
 }
 
 .title-block {
@@ -213,7 +208,6 @@ h1 {
 
 .top-block h2 {
   color: transparent;
-  font-family: "Arial";
   font-weight: 800;
   letter-spacing: 2px;
   padding: 15px;
@@ -287,8 +281,14 @@ h1 {
   top: 20vw;
 }
 
+.shop {
+  margin-top: 70px;
+}
+.iframe-container {
+  position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;
+}
 iframe {
-  max-width: 90vw !important;
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
 }
 iframe .play-bar, iframe .play-button {
   display: none;
@@ -296,11 +296,12 @@ iframe .play-bar, iframe .play-button {
 
 @media (max-width: 960px) {
   header a {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 @media (max-width: 768px) {
   body {
     font-size: 10px;
   }
+
 }

@@ -148,28 +148,28 @@ class App extends Component {
             <div className="row merch" id="merch" style={{marginBottom: 0}}>
               <div>
               <div className="col-sm-12 col shop">
-                <h1 className="overla">SHOP</h1>
+                <h1 className="overlap">SHOP</h1>
               </div>
               <div className="col-sm-6 col">
-                <a>
+                <a href="https://kastellashop.bigcartel.com">
                   <img src={require('./images/edit1.jpg')} />
                   <h2 className="overlay">Toyboy Ripped Tee</h2>
                 </a>
               </div>
               <div className="col-sm-6 col">
-                <a><img src={require('./images/edit2.jpg')} />
+                <a href="https://kastellashop.bigcartel.com"><img src={require('./images/edit2.jpg')} />
                 <h2 className="overlay">Toyboy Tall Tee</h2>
                 </a>
 
               </div>
               <div className="col-sm-6 col">
-                <a><img src={require('./images/edit3.jpg')} />
+                <a href="https://kastellashop.bigcartel.com"><img src={require('./images/edit3.jpg')} />
 
                   <h2 className="overlay">Toyboy Crop</h2>
                 </a>
               </div>
               <div className="col-sm-6 col">
-                <a><img src={require('./images/edit4.jpg')} />
+                <a href="https://kastellashop.bigcartel.com"><img src={require('./images/edit4.jpg')} />
 
                   <h2 className="overlay">Toyboy Crop</h2>
                 </a>
@@ -180,7 +180,7 @@ class App extends Component {
             <div className="row vimeo text-center" id="video">
               <div style={{width: '100%'}}>
                 <div className="col-sm-12">
-                  <h1 className="overla">VIDEO</h1>
+                  <h1 className="overlap">VIDEO</h1>
                 </div>
                 <div className="col-sm-12">
                   <div className="iframe-container">

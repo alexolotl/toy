@@ -137,8 +137,8 @@ float diff = max(dot(screenNormal, ld), 0.);
   vec3 tb = texture2D(toyboy, gl_FragCoord.xy / resolution.xy).xyz;
   vec3 outline = 5.*(1. - tb) * tb;
   outline = smoothstep(.7,.99,outline) * scale3 * scale3 * scale3;
-  tb = smoothstep(0.4, 0.5, tb) * 2.;
-  color *= mix(tb, vec3(1.), 1. - scale3);
+  tb = smoothstep(0.4, 0.5, tb) * 1.4;
+  color *= mix(tb, vec3(1.), 1. - scale3*scale3*scale3*scale3);
   color += .3*color;
   color += color*outline;
 

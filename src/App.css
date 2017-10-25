@@ -39,7 +39,7 @@ header a, header a:visited, header a:link, header a:active {
   cursor: pointer;
   font-weight: 500;
   letter-spacing: .06em;
-  transform: scaleY(1.25);
+  transform: scaleY(1.17);
   text-decoration: none;
 }
 header a:hover {
@@ -73,7 +73,7 @@ footer img.mute {
 
 .overlap {
   position: relative;
-  transform: translateY(75%) scaleY(1.25);
+  transform: translateY(75%) scaleY(1.17);
   z-index: 8;
   -webkit-text-stroke: 2px white;
   color: transparent;

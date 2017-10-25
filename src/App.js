@@ -87,11 +87,12 @@ class App extends Component {
         </header>
         <video ref={vidref => this.video = vidref} style={{display: 'none'}} width="400" height="400" preload="true" autoPlay="true" loop playsInline>
           {/*
+            <source type="video/mp4" src={require('./images/testvid.mp4')} />
+            <source type="video/webm" src={require('./images/testvid.webm')} />
+          */}
+
             <source type="video/mp4" src="https://s3.amazonaws.com/aez-project/toyboy_compressed.mp4" />
             <source type="video/webm" src="https://s3.amazonaws.com/aez-project/toyboy_compressed.webm" />
-          */}
-          <source type="video/mp4" src={require('./images/testvid.mp4')} />
-          <source type="video/webm" src={require('./images/testvid.webm')} />
         </video>
 
         <div style={{display: 'none', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '100vh', position: 'fixed', left: 0, top: 0}}>

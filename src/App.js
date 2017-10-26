@@ -91,8 +91,8 @@ class App extends Component {
             <source type="video/webm" src={require('./images/testvid.webm')} />
           */}
 
-            <source type="video/mp4" src="https://video.matkastella.top/aez-project/toyboy_compressed.mp4" />
-            <source type="video/webm" src="https://video.matkastella.top/aez-project/toyboy_compressed.webm" />
+            <source type="video/mp4" src="https://s3.amazonaws.com/aez-project/toyboy_compressed.mp4" />
+            <source type="video/webm" src="https://s3.amazonaws.com/aez-project/toyboy_compressed.webm" />
         </video>
 
         <div style={{display: 'none', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '100vh', position: 'fixed', left: 0, top: 0}}>

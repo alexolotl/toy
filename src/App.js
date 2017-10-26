@@ -12,7 +12,8 @@ class App extends Component {
       flipping: false,
       activeCake: 0,
       counter: 0,
-      mute: false
+      mute: false,
+      about: false
     }
     // window.addEventListener('scroll', this.scroll);
   }
@@ -67,6 +68,11 @@ class App extends Component {
     }
     this.setState({mute: !this.state.mute})
   }
+  toggleAbout = (event) => {
+    this.setState({
+      about: !this.state.about
+    })
+  }
   render() {
 
     const canvasClasses = classNames('three', {flipping: this.state.flipping})
@@ -80,10 +86,11 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <a href="#">toyboy</a>
-          <a href="#merch">shop</a>
+          <a href="#">top</a>
           <a href="#video">video</a>
-          <a href="https://en.wikipedia.org/wiki/Castella" target="_blank">about</a>
+          <a href="#merch">webshop</a>
+          <a href="#merch">listen</a>
+          <a onClick={this.toggleAbout} target="_blank">about</a>
         </header>
         <video ref={vidref => this.video = vidref} style={{display: 'none'}} width="400" height="400" preload="true" autoPlay="true" loop playsInline>
           {/*
@@ -97,6 +104,19 @@ class App extends Component {
 
         <div style={{display: 'none', alignItems: 'center', justifyContent: 'center', width: '100vw', height: '100vh', position: 'fixed', left: 0, top: 0}}>
           <img style={{position: 'fixed', flex: '1 1 auto', maxWidth: '100vw'}} src={require('./images/warp-text.png')} />
+        </div>
+
+        <div className="About__Container" style={{display: this.state.about ? 'block' : 'none'}}>
+          <div>
+            <h1>Mat Kastella</h1>
+            <h2>Singer Songwriter</h2>
+            matkastella@gmail.com
+
+            twitter instagram facebook about me
+
+            Toy Boy Music Video by Samantha Menchaca (srsmsrs@gmail.com) vimeo
+            Website by Alex Zisis (whatever i want to link to)
+          </div>
         </div>
 
 
@@ -146,38 +166,6 @@ class App extends Component {
 
           <div className="container text-center content">
 
-            <div className="row merch" id="merch" style={{marginBottom: 0}}>
-              <div>
-              <div className="col-sm-12 col shop">
-                <h1 className="overlap">SHOP</h1>
-              </div>
-              <div className="col-sm-6 col">
-                <a href="https://kastellashop.bigcartel.com">
-                  <img src={require('./images/edit1.jpg')} />
-                  <h2 className="overlay">Toyboy Ripped Tee</h2>
-                </a>
-              </div>
-              <div className="col-sm-6 col">
-                <a href="https://kastellashop.bigcartel.com"><img src={require('./images/edit2.jpg')} />
-                <h2 className="overlay">Toyboy Tall Tee</h2>
-                </a>
-
-              </div>
-              <div className="col-sm-6 col">
-                <a href="https://kastellashop.bigcartel.com"><img src={require('./images/edit3.jpg')} />
-
-                  <h2 className="overlay">Toyboy Crop</h2>
-                </a>
-              </div>
-              <div className="col-sm-6 col">
-                <a href="https://kastellashop.bigcartel.com"><img src={require('./images/edit4.jpg')} />
-
-                  <h2 className="overlay">Toyboy Crop</h2>
-                </a>
-              </div>
-              </div>
-            </div>
-
             <div className="row vimeo text-center" id="video">
               <div style={{width: '100%'}}>
                 <div className="col-sm-12">
@@ -190,6 +178,32 @@ class App extends Component {
                 </div>
               </div>
             </div>
+
+            <div className="row merch" id="merch" style={{marginBottom: 0}}>
+              <div>
+              <div className="col-sm-12 col shop">
+                <h1 className="overlap">SHOP</h1>
+              </div>
+              <div className="col-sm-offset-2 col-sm-8 col-xs-12 col">
+                <a href="https://kastellashop.bigcartel.com"><img src={require('./images/edit5.jpg')} />
+                </a>
+              </div>
+              <div className="col-sm-offset-2 col-sm-4 col-xs-6 col">
+                <a href="https://kastellashop.bigcartel.com"><img src={require('./images/tb-crop.jpeg')} />
+                <h2 className="overlay">Toyboy Cropped Tee</h2>
+                </a>
+              </div>
+              <div className="col-sm-4 col-xs-6 col">
+                <a href="https://kastellashop.bigcartel.com">
+                  <img src={require('./images/tb-ripped.jpeg')} />
+                  <h2 className="overlay">Toyboy Ripped Tee</h2>
+                </a>
+              </div>
+
+              </div>
+            </div>
+
+
 
 
 

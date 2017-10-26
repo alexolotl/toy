@@ -57,7 +57,7 @@ export default class World {
     // this.renderer.domElement.style.transform = 'rotateX(' + Math.min(Math.max(0, (this.scroll-2600)/10), 30) + 'deg)';
     // this.renderer.domElement.style.backfaceVisibility = 'hidden';
     this.uniforms.scale3.value = this.scroll / (document.body.offsetHeight - window.innerHeight)// Math.min(Math.max(0, (this.scroll-3200)/10), 30) / 30;
-    console.log(this.scroll / (document.body.offsetHeight - window.innerHeight))
+    // console.log(this.scroll / (document.body.offsetHeight - window.innerHeight))
 
   }
 

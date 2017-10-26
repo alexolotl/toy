@@ -36,7 +36,7 @@ export default class World {
 
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', this.deviceOrientationHandler, false);
-      console.log('device orientation detected');
+      // console.log('device orientation detected');
     }
 
     this.addShader();
